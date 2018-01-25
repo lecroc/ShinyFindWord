@@ -22,6 +22,9 @@ shinyUI(fluidPage(
                  "Input Text Here", value=""),
        submitButton("Submit")
       ),
-    mainPanel()
+    mainPanel(
+      textOutput("newtext")
+      
+    )
     )
 ))

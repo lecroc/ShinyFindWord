@@ -1,26 +1,50 @@
-#
-# This is the server logic of a Shiny web application. You can run the 
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
 
-library(shiny)
+# Load libraries and data
 
-# Define server logic required to draw a histogram
+library(igraph)
+library(dplyr)
+library(ngram)
+library(quanteda)
+library(stringr)
+
+
+# Load tables
+
+load("one.Rda")
+load("two.Rda")
+load("three.Rda")
+load("four.Rda")
+load("five.Rda")
+load("six.Rda")
+
+# Define server logic to return suggested words from text input
 shinyServer(function(input, output) {
    
-  output$distPlot <- renderPlot({
-    
-    # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2] 
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    
+
+# Tokenize input  
+    toke<-reactive({
+    tokens_tolower(tokens(input$InputText, remove_punct=T, remove_numbers=T, remove_symbols=T))
   })
   
+  newtext<-reactive({
+    as.character(unlist(toke()))
+  })
+  
+  newtext1<-reactive({
+    gsub("'", '', newtext())
+  })
+  
+  
+# trim to five words  
+  newtext2<-reactive({
+    if (length(newtext1())>5) {
+      newtext1()[(length(newtext1())-4):length(newtext1())]
+    }
+    else {
+      newtext1()
+    }
+  })
+  
+     output$newtext<-renderText(newtext2())
+     
 })
