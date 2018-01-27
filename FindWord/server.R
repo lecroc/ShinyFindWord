@@ -45,6 +45,95 @@ shinyServer(function(input, output) {
     }
   })
   
-     output$newtext<-renderText(newtext2())
-     
+# Check Model for next word options
+  
+  findsix<-reactive({
+    if (length(newtext1())==5) {
+          six %>%
+          filter(w1==newtext1()[1] & w2==newtext1()[2] & w3==newtext1()[3] & w4==newtext1()[4] & w5==newtext1()[5])
+    }
+    else {
+      NULL
+    }
+        
+      })
+  
+  findfive<-reactive({
+    if (length(newtext1())==4) {
+      five %>%
+        filter(w1==newtext1()[1] & w2==newtext1()[2] & w3==newtext1()[3] & w4==newtext1()[4])
+    }
+    else {
+      NULL
+    }
+    
+  })
+  
+  findfour<-reactive({
+    if (length(newtext1())==3) {
+      four %>%
+        filter(w1==newtext1()[1] & w2==newtext1()[2] & w3==newtext1()[3])
+    }
+    else {
+      NULL
+    }
+    
+  })
+  
+  findthree<-reactive({
+    if (length(newtext1())==3) {
+      three %>%
+        filter(w1==newtext1()[1] & w2==newtext1()[2])
+    }
+    else {
+      NULL
+    }
+    
+  })
+  
+  findtwo<-reactive({
+    if (length(newtext1())==2) {
+      two %>%
+        filter(w1==newtext1()[1])
+    }
+    else {
+      NULL
+    }
+    
+  })
+  
+  sixwords<-reactive({
+    if(nrow(findsix())>0) {
+      findsix$w6
+    }
+  })
+  
+  fivewords<-reactive({
+    if(nrow(findfive())>0) {
+      findfive$w5
+    }
+  })
+  
+  fourwords<-reactive({
+    if(nrow(findfour())>0) {
+      findfour$w4
+    }
+  })
+  
+  threewords<-reactive({
+    if(nrow(findthree())>0) {
+      findthree$w3
+    }
+  })
+  
+  twowords<-reactive({
+    if(nrow(findtwo())>0) {
+      findtwo$w2
+    }
+  })
+  
+  words<-reactive({twowords()[1:10]})
+  
+       output$newtext<-renderText(newtext2())
+       
 })
