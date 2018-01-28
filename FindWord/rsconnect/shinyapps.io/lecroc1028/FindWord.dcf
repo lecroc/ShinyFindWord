@@ -1,0 +1,12 @@
+name: FindWord
+title: FindWord
+username:
+account: lecroc1028
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 264237
+bundleId: 1196811
+url: https://lecroc1028.shinyapps.io/FindWord/
+when: 1517173426.32839
+asMultiple: FALSE
+asStatic: FALSE

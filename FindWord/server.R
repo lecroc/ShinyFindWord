@@ -6,6 +6,7 @@ library(dplyr)
 library(ngram)
 library(quanteda)
 library(stringr)
+library(shiny)
 
 
 # Load tables
@@ -14,12 +15,9 @@ load("one.Rda")
 load("two.Rda")
 load("three.Rda")
 load("four.Rda")
-load("five.Rda")
-load("six.Rda")
 
 # Define server logic to return suggested words from text input
 shinyServer(function(input, output) {
-   
 
 # Tokenize input  
     toke<-reactive({
@@ -35,105 +33,67 @@ shinyServer(function(input, output) {
   })
   
   
-# trim to five words  
+# trim to three words  
   newtext2<-reactive({
-    if (length(newtext1())>5) {
-      newtext1()[(length(newtext1())-4):length(newtext1())]
+    if (length(newtext1())>3) {
+      newtext1()[(length(newtext1())-2):length(newtext1())]
     }
     else {
       newtext1()
     }
   })
   
-# Check Model for next word options
-  
-  findsix<-reactive({
-    if (length(newtext1())==5) {
-          six %>%
-          filter(w1==newtext1()[1] & w2==newtext1()[2] & w3==newtext1()[3] & w4==newtext1()[4] & w5==newtext1()[5])
-    }
-    else {
-      NULL
-    }
-        
-      })
-  
-  findfive<-reactive({
-    if (length(newtext1())==4) {
-      five %>%
-        filter(w1==newtext1()[1] & w2==newtext1()[2] & w3==newtext1()[3] & w4==newtext1()[4])
-    }
-    else {
-      NULL
-    }
-    
-  })
-  
   findfour<-reactive({
-    if (length(newtext1())==3) {
+    if (length(newtext2())==3) {
       four %>%
-        filter(w1==newtext1()[1] & w2==newtext1()[2] & w3==newtext1()[3])
+        filter(w1==newtext2()[1] & w2==newtext2()[2] & w3==newtext2()[3])
     }
-    else {
-      NULL
-    }
-    
   })
   
   findthree<-reactive({
-    if (length(newtext1())==3) {
+    if (length(newtext2())==3) {
       three %>%
-        filter(w1==newtext1()[1] & w2==newtext1()[2])
+        filter(w1==newtext2()[2] & w2==newtext2()[3])
     }
     else {
-      NULL
+      if (length(newtext2()==2)) {
+        three %>%
+          filter(w1==newtext2()[1] & w2==newtext2()[2])
+      }
     }
-    
   })
   
   findtwo<-reactive({
-    if (length(newtext1())==2) {
+    if (length(newtext2())==3) {
       two %>%
-        filter(w1==newtext1()[1])
+        filter(w1==newtext2()[3])
     }
     else {
-      NULL
-    }
+      if (length(newtext2())==2) {
+        two %>%
+          filter(w1==newtext2()[2])
+      }
     
-  })
-  
-  sixwords<-reactive({
-    if(nrow(findsix())>0) {
-      findsix$w6
+      else {
+        if (length(newtext2())==1) {
+          two %>%
+            filter(w1==newtext2()[1])
+        }
+      }
     }
   })
   
-  fivewords<-reactive({
-    if(nrow(findfive())>0) {
-      findfive$w5
-    }
+  findone<-reactive({
+    one[1:10,]
   })
   
-  fourwords<-reactive({
-    if(nrow(findfour())>0) {
-      findfour$w4
-    }
+  words<-reactive({
+    unique(c(findfour()$w4, findthree()$w3, findtwo()$w2, findone()$feature))[1:10]
   })
   
-  threewords<-reactive({
-    if(nrow(findthree())>0) {
-      findthree$w3
-    }
-  })
   
-  twowords<-reactive({
-    if(nrow(findtwo())>0) {
-      findtwo$w2
-    }
-  })
-  
-  words<-reactive({twowords()[1:10]})
-  
-       output$newtext<-renderText(newtext2())
-       
+   output$newtext<-renderText({newtext2()})
+   output$words<-renderText({words()})
+    
+   
 })

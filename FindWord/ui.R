@@ -7,7 +7,21 @@
 #    http://shiny.rstudio.com/
 #
 
+# Load libraries and data
+
+library(igraph)
+library(dplyr)
+library(ngram)
+library(quanteda)
+library(stringr)
 library(shiny)
+
+# Load tables
+
+load("one.Rda")
+load("two.Rda")
+load("three.Rda")
+load("four.Rda")
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -23,8 +37,8 @@ shinyUI(fluidPage(
        submitButton("Submit")
       ),
     mainPanel(
-      textOutput("newtext"),
       
+      textOutput("newtext"),
       textOutput("words")
       
     )

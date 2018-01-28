@@ -22,7 +22,7 @@ load("six.Rda")
 
 # read in text and select the last 5 words of each
 
-newtext1<-"don't be a"
+newtext1<-"one of a"
 toke<-tokens_tolower(tokens(newtext1, remove_punct=T, remove_numbers=T, remove_symbols=T))
 newtext<-as.character(unlist(toke))
 newtext<-gsub("'", '', newtext)
@@ -84,9 +84,9 @@ if (length(newtext)==4) {
 }
 
 if (length(newtext)==3) {
-  
+  filter(w1==newtext[1] & w2==newtext[2] & w3==newtext[3])
   findfour<-four %>%
-    filter(w1==newtext[1] & w2==newtext[2] & w3==newtext[3])
+    
   
   findthree<-three %>%
     filter(w1==newtext[2] & w2==newtext[3])
@@ -129,5 +129,5 @@ if (length(newtext)==1) {
 
 print(noquote(newtext))
 
-print(noquote(unique(words)))
+print(noquote(unique(words)[1:10]))
 
