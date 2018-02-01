@@ -83,17 +83,15 @@ shinyServer(function(input, output) {
     }
   })
   
-  findone<-reactive({
-    one[1:10,]
-  })
-  
   words<-reactive({
-    unique(c(findfour()$w4, findthree()$w3, findtwo()$w2, findone()$feature))[1:10]
-  })
-  
-  
-   output$newtext<-renderText({newtext2()})
-   output$words<-renderText({words()})
-    
-   
+    unique(c(findfour()$w4, findthree()$w3, findtwo()$w2, one$feature))[1:5]
+    })
+
+   output$newtext<-renderText({input$InputText})
+   output$words1<-renderText({words()[1]})
+   output$words2<-renderText({words()[2]})
+   output$words3<-renderText({words()[3]})
+   output$words4<-renderText({words()[4]})
+   output$words5<-renderText({words()[5]})
+
 })
