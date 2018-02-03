@@ -5,8 +5,8 @@ account: lecroc1028
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 264237
-bundleId: 1202175
+bundleId: 1202204
 url: https://lecroc1028.shinyapps.io/FindWord/
-when: 1517450525.30852
+when: 1517451683.64864
 asMultiple: FALSE
 asStatic: FALSE

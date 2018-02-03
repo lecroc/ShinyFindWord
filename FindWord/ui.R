@@ -44,7 +44,7 @@ shinyUI(fluidPage(
       h4("Your Input:"),
       textOutput("newtext"),
       h2(" "),
-      h4("Suggested next Words:"),
+      h4("Suggested next word:"),
       textOutput("words1"),
       textOutput("words2"),
       textOutput("words3"),

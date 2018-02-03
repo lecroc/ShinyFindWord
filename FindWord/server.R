@@ -86,12 +86,32 @@ shinyServer(function(input, output) {
   words<-reactive({
     unique(c(findfour()$w4, findthree()$w3, findtwo()$w2, one$feature))[1:5]
     })
+  
+  word1<-reactive({
+    paste("1. ", words()[1])
+  })
 
+  word2<-reactive({
+    paste("2. ", words()[2])
+  })
+  
+  word3<-reactive({
+    paste("3. ", words()[3])
+  })
+  
+  word4<-reactive({
+    paste("4. ", words()[4])
+  })
+  
+  word5<-reactive({
+    paste("5. ", words()[5])
+  })
+  
    output$newtext<-renderText({input$InputText})
-   output$words1<-renderText({words()[1]})
-   output$words2<-renderText({words()[2]})
-   output$words3<-renderText({words()[3]})
-   output$words4<-renderText({words()[4]})
-   output$words5<-renderText({words()[5]})
+   output$words1<-renderText({word1()})
+   output$words2<-renderText({word2()})
+   output$words3<-renderText({word3()})
+   output$words4<-renderText({word4()})
+   output$words5<-renderText({word5()})
 
 })
