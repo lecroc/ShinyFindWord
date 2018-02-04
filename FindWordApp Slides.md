@@ -13,7 +13,7 @@ I have intentionally tried to get it to work in a similar fashion to the SMS tex
 The underlying strategy in the development of the app was to keep the model fairly simple, but to train it on as much data as possible.  Therefore, the end result is a fairly simple backoff n-gram model that has been trained on the entire corpus of text data avaialble.
 
 
-Slide With Code
+Data Prep
 ========================================================
 
 
@@ -31,7 +31,13 @@ summary(cars)
  Max.   :25.0   Max.   :120.00  
 ```
 
-Slide With Plot
+Model Development
 ========================================================
 
 ![plot of chunk unnamed-chunk-2](FindWordApp Slides-figure/unnamed-chunk-2-1.png)
+
+Shiny App
+========================================================
+
+
+
