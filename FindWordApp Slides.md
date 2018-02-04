@@ -16,28 +16,40 @@ The underlying strategy in the development of the app was to keep the model fair
 Data Prep
 ========================================================
 
+In this phase I was fortunate to have access to a computer with 64GB of RAM.  I went throught the following steps to prepare the text data for modelling:
 
-```r
-summary(cars)
-```
-
-```
-     speed           dist       
- Min.   : 4.0   Min.   :  2.00  
- 1st Qu.:12.0   1st Qu.: 26.00  
- Median :15.0   Median : 36.00  
- Mean   :15.4   Mean   : 42.98  
- 3rd Qu.:19.0   3rd Qu.: 56.00  
- Max.   :25.0   Max.   :120.00  
-```
+- All data prep was done using a combination of the dplyr and quanteda packages
+  - Created a corpus of all available text data
+  - Created document frequency matrices and frequency tables for 1, 2, 3, 4, 5 and 6 grams
+  - Pruned the n-gram frequency tables for frequencies >= 5
+  - Broke out the frequency tables into data frames with columns for each token in the n-gram along with a column for the frequency it occurred within the corpus
+  - Saved a data table for each set of n-grams for use in model
 
 Model Development
 ========================================================
 
-![plot of chunk unnamed-chunk-2](FindWordApp Slides-figure/unnamed-chunk-2-1.png)
+In keeping with my strategy of using a simple model with lots of data, I stayed focused on a backoff model using the n-gram tables I created in the data preparation phase:
+
+- Model takes input from the user and searches for matches, starting with 6 grams and backing off to 5, 4, 3. and 2 grams
+- Compiled a list of words matched at each step of the backoff chain, sorting by probability - words from higher order n-grams given priority
+- Experimented with backing off from 6, 5, and 4 grams
+- Settled on 4 grams as I found that there were very few situations where 5 or 6 grams produced a match
+- Compared performance of my model to the performance of the SMS text app on my smartphone
+- Once I felt the performance was satisfactory, proceded to develop Shiny App
 
 Shiny App
 ========================================================
 
+You can access my Shiny App here: https://lecroc1028.shinyapps.io/FindWord/
 
+Model Features:
+
+- Total data loaded is < 20 Mb, so only takes a few seconds to load
+- User inputs a phrase, clicks submit, or hits "Enter"
+- The five most likely next words are returned in order by the app
+
+Further Developmnet:
+
+- Look for additional english text sources to add to the corpus
+- Experiment with more advanced smoothing techniques
 
